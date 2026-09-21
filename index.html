@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #080b11;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #app { flex: 1; display: flex; flex-direction: column; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module">
+    import * as App from '/src/main.js';
+    const mountTarget = document.getElementById('app') || document.body;
+    if (mountTarget && !mountTarget.__nexus_mounted && mountTarget.children.length === 0) {
+      mountTarget.__nexus_mounted = true;
+      if (typeof App.mountApp === 'function') {
+        App.mountApp(mountTarget);
+      } else if (typeof App.mount === 'function') {
+        App.mount(mountTarget);
+      } else if (typeof App.default === 'function') {
+        App.default(mountTarget);
+      } else if (App.default && typeof App.default.mount === 'function') {
+        App.default.mount(mountTarget);
+      } else if (App.default && typeof App.default.mountApp === 'function') {
+        App.default.mountApp(mountTarget);
+      }
+    }
+  </script>
+</body>
+</html>
